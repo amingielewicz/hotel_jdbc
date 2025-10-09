@@ -36,6 +36,19 @@ public class Customer {
         this.pesel = pesel;
     }
 
+    public Customer(String name, String surname, String pesel, LocalDate createDate) {
+        this.name = name;
+        this.surname = surname;
+        this.pesel = pesel;
+        this.createDate = createDate;
+    }
+
+    public Customer(int id, String name, String surname, String pesel) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.pesel = pesel;
+    }
 
     public int getId() {
         return id;
