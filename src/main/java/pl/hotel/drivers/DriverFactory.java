@@ -4,7 +4,9 @@ import pl.hotel.customer.CustomerRepository;
 import pl.hotel.customer.CustomerService;
 import pl.hotel.customer.CustomerServiceInterface;
 import pl.hotel.employee.*;
+import pl.hotel.room.*;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -36,6 +38,8 @@ public class DriverFactory {
             CustomerServiceInterface customerService = new CustomerService(connection);
             EmployeeRepository employeeRepository = new EmployeeRepository(connection);
             EmployeeServiceInterface employeeService = new EmployeeService(connection);
+            RoomRepository roomRepository = new RoomRepository(connection);
+            RoomServiceInterface roomService = new RoomService(connection);
 
             // ## CUSTOMER GET
             //Customer customer = customerRepository.get(new CustomerFilter(null, null, null));
@@ -74,6 +78,29 @@ public class DriverFactory {
 //            employeeService.findAll().forEach(employee -> System.out.println(employee.getId() + " "
 //                    + employee.getName() + " " + employee.getSurname() + " " + " " + employee.getRole() + " "
 //                    + employee.getPersonalSkill() + " " + employee.getCreateDate()));
+
+            // ## ROOM GET
+//            Room room = roomService.get(new RoomFilter(1, 100, null, null));
+//           System.out.println(room.getId() + " "
+//                   + room.getRoomNumber() + " " + room.getRoomSize() + " " + room.getEquipment());
+
+            //TODO: potrzebował daty w created_date
+
+            // ## ROOM CREATE
+//            Room room = roomService.create(new Room(102, "S", "czajnik, TV, klimatyzacja"
+//                                    , BigDecimal.valueOf(125) ,LocalDate.of(2025, 04, 15)));
+
+            // ## ROOM UPDATE
+//            roomRepository.update(new Room(2, 101, "M", "czajnik, TV, playstation"
+//                            , BigDecimal.valueOf(220), LocalDate.of(2025, 11, 11)));
+
+//            // ## ROOM DELETE
+//            roomRepository.delete(2);
+
+//             ## ROOM FIND ALL
+//            roomService.findAll().forEach(room -> System.out.println("Id: " + room.getId() + " Numer pokoju: "
+//                    + room.getRoomNumber() + " Rozmiar pokoju: " + room.getRoomSize() + " Wyposażenie: " + room.getEquipment() + " Cena: " + room.getPrice()
+//                    + " Data utworzenia: " + room.getCreateDate() + " Data aktualizacji: " + room.getUpdateDate() + " Data usunięcia: " + room.getDeleteDate()));
 
 
         } catch (SQLException e) {

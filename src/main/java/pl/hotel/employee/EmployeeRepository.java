@@ -96,6 +96,7 @@ public class EmployeeRepository {
             System.err.println("Błąd przy aktualizacji klienta: " + e.getMessage());
         } finally {
             closePreparedStatement(preparedStatement);
+            System.out.println("Dane zaktualizowano");
         }
         return null;
     }
