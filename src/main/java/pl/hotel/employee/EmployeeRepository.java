@@ -91,6 +91,7 @@ public class EmployeeRepository {
             preparedStatement.setInt(6, employee.getId());
             preparedStatement.executeUpdate();
             employee.setUpdateDate(updateDate);
+            System.out.println("Dane zaktualizowano");
             return employee;
         } catch(SQLException e) {
             System.err.println("Błąd przy aktualizacji klienta: " + e.getMessage());
@@ -108,6 +109,7 @@ public class EmployeeRepository {
             preparedStatement.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
+            System.out.println("Dane usunięto");
         } catch(SQLException e) {
             System.err.println("Nie usunięto wartości z tablicy employee.");
         } finally {
