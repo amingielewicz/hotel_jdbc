@@ -4,6 +4,10 @@ import pl.hotel.customer.CustomerRepository;
 import pl.hotel.customer.CustomerService;
 import pl.hotel.customer.CustomerServiceInterface;
 import pl.hotel.employee.*;
+import pl.hotel.reservation.Reservation;
+import pl.hotel.reservation.ReservationRepository;
+import pl.hotel.reservation.ReservationService;
+import pl.hotel.reservation.ReservationServiceInterface;
 import pl.hotel.room.*;
 
 import java.math.BigDecimal;
@@ -40,6 +44,8 @@ public class DriverFactory {
             EmployeeServiceInterface employeeService = new EmployeeService(connection);
             RoomRepository roomRepository = new RoomRepository(connection);
             RoomServiceInterface roomService = new RoomService(connection);
+            ReservationRepository reservationRepository = new ReservationRepository(connection);
+            ReservationServiceInterface reservationService = new ReservationService(connection);
 
             // ## CUSTOMER GET
             //Customer customer = customerRepository.get(new CustomerFilter(null, null, null));
@@ -101,6 +107,32 @@ public class DriverFactory {
 //            roomService.findAll().forEach(room -> System.out.println("Id: " + room.getId() + " Numer pokoju: "
 //                    + room.getRoomNumber() + " Rozmiar pokoju: " + room.getRoomSize() + " Wyposażenie: " + room.getEquipment() + " Cena: " + room.getPrice()
 //                    + " Data utworzenia: " + room.getCreateDate() + " Data aktualizacji: " + room.getUpdateDate() + " Data usunięcia: " + room.getDeleteDate()));
+            // ## ROOM GET
+//            Room room = roomService.get(new RoomFilter(1, 100, null, null));
+//           System.out.println(room.getId() + " "
+//                   + room.getRoomNumber() + " " + room.getRoomSize() + " " + room.getEquipment());
+
+            //TODO: potrzebował daty w created_date
+
+            // ## RESERVATION CREATE
+//            Reservation reservation = reservationService.create(new Reservation(4, LocalDate.of(2025, 1 , 15),
+//                                     LocalDate.of(2025, 2, 10), 103, new BigDecimal("200.00"), new BigDecimal("200.00"), true, 12));
+
+            // ## RESERVATION UPDATE
+//            reservationRepository.update(new Reservation(4, 2, LocalDate.of(2025, 12, 15), LocalDate.of(2025, 12, 17)
+//                            , 104, new BigDecimal("110.00"), new BigDecimal("100"), false, 1));
+
+//            // ## RESERVATION DELETE
+//            reservationRepository.delete(6);
+
+//             ## RESERVATION FIND ALL
+//            reservationService.findAll().forEach(reservations -> System.out.println("Numer rezerwacji: " + reservations.getId() + " Numer klienta: " + reservations.getCustomerId()
+//                    + " Okres rezerwacji (od):" + reservations.getStartReservationDate() + " (do): "
+//                    + reservations.getEndReservationDate() + " Numer pokoju: " + reservations.getRoomNumber() + " Cena pokoju: " + reservations.getTotalAmount()
+//                    + " Wpłacona kwota: " + reservations.getDeposit() + " Opłacono: " + (reservations.isFullPaid() ? "TAK" : "NIE") + " Id pracownika: "
+//                    + reservations.getEmployerId()));
+
+            //TODO: potrzebował daty w created_date
 
 
         } catch (SQLException e) {
