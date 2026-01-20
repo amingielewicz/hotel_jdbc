@@ -87,6 +87,7 @@ public class CustomerRepository {
             preparedStatement.setInt(5, customer.getId());
             preparedStatement.executeUpdate();
             customer.setUpdateDate(updateDate);
+            System.out.println("Dane zaktualizowano");
             return customer;
         } catch(SQLException e) {
             System.err.println("Błąd przy aktualizacji klienta: " + e.getMessage());
@@ -104,6 +105,7 @@ public class CustomerRepository {
             preparedStatement.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
+            System.out.println("Dane usunięto");
         } catch(SQLException e) {
             System.err.println("Nie usunięto wartości z tablicy customer.");
         } finally {

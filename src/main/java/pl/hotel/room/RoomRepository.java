@@ -90,12 +90,12 @@ public class RoomRepository {
             preparedStatement.setInt(6, room.getId());
             preparedStatement.executeUpdate();
             room.setUpdateDate(updateDate);
+            System.out.println("Dane zaktualizowano");
             return room;
         } catch(SQLException e) {
             System.err.println("Błąd przy aktualizacji pokoju: " + e.getMessage());
         } finally {
             closePreparedStatement(preparedStatement);
-            System.out.println("Dane zaktualizowano");
         }
         return null;
     }
@@ -107,11 +107,11 @@ public class RoomRepository {
             preparedStatement.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
+            System.out.println("Dane usunięto");
         } catch(SQLException e) {
             System.err.println("Nie usunięto wartości z tablicy room.");
         } finally {
             closePreparedStatement(preparedStatement);
-            System.out.println("Dane usunięto");
         }
     }
 
