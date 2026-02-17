@@ -34,7 +34,7 @@ public class EmployeeRepository {
                         resultSet.getString("name"),
                         resultSet.getString("surname"),
                         resultSet.getString("role"),
-                        resultSet.getString("personalSkill"),
+                        resultSet.getString("personal_skill"),
                         resultSet.getDate("create_date").toLocalDate(),
                         resultSet.getTime("update_date") != null ? resultSet.getTimestamp("update_date").toLocalDateTime() : null,
                         resultSet.getTime("delete_date") != null ? resultSet.getTimestamp("delete_date").toLocalDateTime() : null
@@ -53,7 +53,7 @@ public class EmployeeRepository {
 
     public Employee create(Employee employee) {
         try{
-            String query = "INSERT INTO employee(name, surname, role, personalSkill, create_date) values(?, ?, ?, ?, ?)";
+            String query = "INSERT INTO employee(name, surname, role, personal_skill, create_date) values(?, ?, ?, ?, ?)";
 
             preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, employee.getName());
@@ -81,7 +81,7 @@ public class EmployeeRepository {
     public Employee update(Employee employee){
         try{
             LocalDateTime updateDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-            String query = "UPDATE employee SET name = ?, surname = ?, role = ?, personalSkill = ?, update_date = ? WHERE id = ?";
+            String query = "UPDATE employee SET name = ?, surname = ?, role = ?, personal_skill = ?, update_date = ? WHERE id = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, employee.getName());
             preparedStatement.setString(2, employee.getSurname());
@@ -132,7 +132,7 @@ public class EmployeeRepository {
                         resultSet.getString("name"),
                         resultSet.getString("surname"),
                         resultSet.getString("role"),
-                        resultSet.getString("personalSkill"),
+                        resultSet.getString("personal_skill"),
                         resultSet.getDate("create_date").toLocalDate(),
                         resultSet.getTime("update_date") != null ? resultSet.getTimestamp("update_date").toLocalDateTime() : null,
                         resultSet.getTime("delete_date") != null ? resultSet.getTimestamp("delete_date").toLocalDateTime() : null

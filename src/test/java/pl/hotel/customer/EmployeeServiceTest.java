@@ -39,7 +39,7 @@ public class EmployeeServiceTest {
                     "name VARCHAR(50), " +
                     "surname VARCHAR(50), " +
                     "role VARCHAR(20)," +
-                    "personalSkill VARCHAR(20)," +
+                    "personal_skill VARCHAR(20)," +
                     "create_date DATE NOT NULL, " +
                     "update_date DATETIME, " +
                     "delete_date DATETIME" +

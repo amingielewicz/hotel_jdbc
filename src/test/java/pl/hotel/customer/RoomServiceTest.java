@@ -37,8 +37,8 @@ public class RoomServiceTest {
 
             String sql = "CREATE TABLE room" +
                     "(id INTEGER AUTO_INCREMENT PRIMARY KEY, " +
-                    "roomNumber INTEGER NOT NULL, " +
-                    "roomSize VARCHAR(20), " +
+                    "room_number INTEGER NOT NULL, " +
+                    "room_size VARCHAR(20), " +
                     "equipment VARCHAR(50)," +
                     "price DECIMAL(8,2)," +
                     "create_date DATE NOT NULL, " +

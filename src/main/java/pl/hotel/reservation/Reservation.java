@@ -1,7 +1,5 @@
 package pl.hotel.reservation;
 
-import pl.hotel.customer.Customer;
-import pl.hotel.room.Room;
 import pl.hotel.utils.Common;
 
 import java.math.BigDecimal;
@@ -22,12 +20,13 @@ public class Reservation extends Common {
     private int employerId;
     private LocalDateTime updateDate;
     private LocalDateTime deleteDate;
+    private LocalDateTime createReservationDate;
 
 
     public Reservation(int id, int customerId, LocalDate startReservationDate,
                        LocalDate endReservationDate, int roomNumber,
                        BigDecimal totalAmount, BigDecimal depositAmount,
-                       boolean isFullPaid, int employerId) {
+                       boolean isFullPaid, int employerId, LocalDateTime createDate) {
         this.id = id;
         this.customerId = customerId;
         this.startReservationDate = startReservationDate;
@@ -37,6 +36,7 @@ public class Reservation extends Common {
         this.depositAmount = depositAmount;
         this.isFullPaid = isFullPaid;
         this.employerId = employerId;
+        this.createReservationDate = LocalDateTime.now();
     }
 
     public Reservation(int customerId, LocalDate startReservationDate, LocalDate endReservationDate, int roomNumber, BigDecimal totalAmount, BigDecimal depositAmount,
@@ -142,4 +142,19 @@ public class Reservation extends Common {
         this.deleteDate = deleteDate;
     }
 
+    public BigDecimal getDepositAmount() {
+        return depositAmount;
+    }
+
+    public void setDepositAmount(BigDecimal depositAmount) {
+        this.depositAmount = depositAmount;
+    }
+
+    public LocalDateTime getCreateReservationDate() {
+        return createReservationDate;
+    }
+
+    public void setCreateReservationDate(LocalDateTime createReservationDate) {
+        this.createReservationDate = createReservationDate;
+    }
 }

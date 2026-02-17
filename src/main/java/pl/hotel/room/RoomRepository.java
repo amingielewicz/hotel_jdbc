@@ -31,8 +31,8 @@ public class RoomRepository {
             while(resultSet.next()) {
                 rooms.add(new Room(
                         resultSet.getInt("id"),
-                        resultSet.getInt("roomNumber"),
-                        resultSet.getString("roomSize"),
+                        resultSet.getInt("room_number"),
+                        resultSet.getString("room_size"),
                         resultSet.getString("equipment"),
                         resultSet.getBigDecimal("price"),
                         resultSet.getDate("create_date").toLocalDate(),
@@ -53,7 +53,7 @@ public class RoomRepository {
 
     public Room create(Room room) {
         try{
-            String query = "INSERT INTO room(roomNumber, roomSize, equipment, price, create_date) values(?, ?, ?, ?, ?)";
+            String query = "INSERT INTO room(room_number, room_size, equipment, price, create_date) values(?, ?, ?, ?, ?)";
 
             preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, room.getRoomNumber());
@@ -80,7 +80,7 @@ public class RoomRepository {
     public Room update(Room room){
         try{
             LocalDateTime updateDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-            String query = "UPDATE room SET roomNumber = ?, roomSize = ?, equipment = ?, price = ?, update_date = ? WHERE id = ?";
+            String query = "UPDATE room SET room_number = ?, room_size = ?, equipment = ?, price = ?, update_date = ? WHERE id = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, room.getRoomNumber());
             preparedStatement.setString(2, room.getRoomSize());
@@ -128,8 +128,8 @@ public class RoomRepository {
 
                 room = new Room(
                         resultSet.getInt("id"),
-                        resultSet.getInt("roomNumber"),
-                        resultSet.getString("roomSize"),
+                        resultSet.getInt("room_number"),
+                        resultSet.getString("room_size"),
                         resultSet.getString("equipment"),
                         resultSet.getBigDecimal("price"),
                         resultSet.getDate("create_date").toLocalDate(),
@@ -156,10 +156,10 @@ public class RoomRepository {
                 query += " AND id = '" + roomFilter.getId() + "' ";
             }
             if(roomFilter.getRoomNumber() != 0) {
-                query += " AND roomNumber = '" + roomFilter.getRoomNumber() + "' ";
+                query += " AND room_number = '" + roomFilter.getRoomNumber() + "' ";
             }
             if(roomFilter.getRoomSize() != null) {
-                query += " AND roomSize = '" + roomFilter.getRoomSize() + "' ";
+                query += " AND room_size = '" + roomFilter.getRoomSize() + "' ";
             }
             if(roomFilter.getEquipment() != null) {
                 query += " AND equipment = '" + roomFilter.getEquipment() + "' ";
