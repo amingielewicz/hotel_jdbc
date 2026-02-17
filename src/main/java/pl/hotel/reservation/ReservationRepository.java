@@ -32,13 +32,14 @@ public class ReservationRepository {
                 reservations.add(new Reservation(
                         resultSet.getInt("id"),
                         resultSet.getInt("customer_id"),
-                        resultSet.getDate("start_reservation").toLocalDate(),
-                        resultSet.getDate("end_reservation").toLocalDate(),
+                        resultSet.getDate("start_reservation_date").toLocalDate(),
+                        resultSet.getDate("end_reservation_date").toLocalDate(),
                         resultSet.getInt("room_number"),
                         resultSet.getBigDecimal("total_amount"),
-                        resultSet.getBigDecimal("deposit_amount"),
+                        resultSet.getBigDecimal("deposit"),
                         resultSet.getBoolean("is_full_paid"),
-                        resultSet.getInt("employer_id")
+                        resultSet.getInt("employer_id"),
+                        resultSet.getTimestamp("create_reservation_date").toLocalDateTime()
                 ));
             }
             System.out.println("Pobrano " + reservations.size() + " rezerwacji.");
@@ -54,9 +55,10 @@ public class ReservationRepository {
     }
 
     public Reservation create(Reservation reservation) {
-        String query = "INSERT INTO reservation(customer_id, start_reservation, end_reservation, room_number, total_amount, deposit_amount, is_full_paid, employer_id) values(?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO reservation(customer_id, start_reservation_date, end_reservation_date, room_number, total_amount, deposit, is_full_paid, employer_id, create_reservation_date) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try{
+            LocalDateTime createReservationDate = LocalDateTime.now();
             preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, reservation.getCustomerId());
             preparedStatement.setDate(2, Date.valueOf(reservation.getStartReservationDate()));
@@ -66,12 +68,14 @@ public class ReservationRepository {
             preparedStatement.setBigDecimal(6, reservation.getDeposit());
             preparedStatement.setBoolean(7, reservation.isFullPaid());
             preparedStatement.setInt(8, reservation.getEmployerId());
+            preparedStatement.setTimestamp(9, Timestamp.valueOf(createReservationDate));
             preparedStatement.executeUpdate();
 
             try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
                 if (rs.next()) {
                     int generatedId = rs.getInt(1);
                     reservation.setId(generatedId);
+                    reservation.setCreateReservationDate(createReservationDate);
                     System.out.println("Utworzono rezerwację o numerze: " + generatedId);
                     return reservation;
                 }
@@ -87,7 +91,7 @@ public class ReservationRepository {
     public Reservation update(Reservation reservation){
         try{
             LocalDateTime updateDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-            String query = "UPDATE reservation SET customer_id = ?, start_reservation = ?, end_reservation = ?, room_number = ?, total_amount = ?, deposit_amount = ?, is_full_paid = ?, " +
+            String query = "UPDATE reservation SET customer_id = ?, start_reservation_date = ?, end_reservation_date = ?, room_number = ?, total_amount = ?, deposit = ?, is_full_paid = ?, " +
                     "employer_id = ? WHERE id = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, reservation.getCustomerId());
@@ -139,14 +143,15 @@ public class ReservationRepository {
 
                 reservation = new Reservation(
                         resultSet.getInt("id"),
-                        resultSet.getInt("customerId"),
-                        resultSet.getDate("startReservationDate").toLocalDate(),
-                        resultSet.getDate("endReservationDate").toLocalDate(),
-                        resultSet.getInt("roomNumber"),
-                        resultSet.getBigDecimal("sum"),
+                        resultSet.getInt("customer_id"),
+                        resultSet.getDate("start_reservation_date").toLocalDate(),
+                        resultSet.getDate("end_reservation_date").toLocalDate(),
+                        resultSet.getInt("room_number"),
+                        resultSet.getBigDecimal("total_amount"),
                         resultSet.getBigDecimal("deposit"),
-                        resultSet.getBoolean("isFullPaid"),
-                        resultSet.getInt("employerId")
+                        resultSet.getBoolean("is_full_paid"),
+                        resultSet.getInt("employer_id"),
+                        resultSet.getTimestamp("create_reservation_date").toLocalDateTime()
                 );
             }
 
@@ -168,25 +173,28 @@ public class ReservationRepository {
                 query += "AND id = '" + reservationFilter.getId() + "' ";
             }
             if(reservationFilter.getCustomerId() != 0) {
-                query += "AND customerId = '" + reservationFilter.getCustomerId() + "' ";
+                query += "AND customer_id = '" + reservationFilter.getCustomerId() + "' ";
             }
             if(reservationFilter.getStartReservationDate() != null) {
-                query += "AND startReservationDate = '" + reservationFilter.getStartReservationDate() + "' ";
+                query += "AND start_reservation_date = '" + reservationFilter.getStartReservationDate() + "' ";
             }
             if(reservationFilter.getEndReservationDate() != null) {
-                query += "AND endReservationDate = '" + reservationFilter.getEndReservationDate() + "' ";
+                query += "AND end_reservation_date = '" + reservationFilter.getEndReservationDate() + "' ";
             }
-            if(reservationFilter.getSum() != null) {
-                query += "AND sum = '" + reservationFilter.getSum() + "' ";
+            if(reservationFilter.getTotalAmount() != null) {
+                query += "AND total_amount = '" + reservationFilter.getTotalAmount() + "' ";
             }
             if(reservationFilter.getDeposit() != null) {
                 query += "AND deposit = '" + reservationFilter.getDeposit() + "' ";
             }
             if(reservationFilter.isFullPaid()) {
-                query += "AND isFullPaid = '" + reservationFilter.isFullPaid() + "' ";
+                query += "AND is_full_paid = '" + reservationFilter.isFullPaid() + "' ";
             }
             if(reservationFilter.getEmployerId() != 0) {
-                query += "AND employerId = '" + reservationFilter.getEmployerId() + "' ";
+                query += "AND employer_id = '" + reservationFilter.getEmployerId() + "' ";
+            }
+            if(reservationFilter.getCreatedDate() != null) {
+                query += "AND create_reservation_date = '" + reservationFilter.getCreatedDate() + "' ";
             }
         }
         return query;

@@ -4,6 +4,7 @@ import pl.hotel.room.Room;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ReservationFilter {
 
@@ -12,25 +13,25 @@ public class ReservationFilter {
     private int customerId;
     private LocalDate startReservationDate;
     private LocalDate endReservationDate;
-    private Room room;
-    private BigDecimal sum;
+    private int roomNumber;
+    private BigDecimal totalAmount;
     private BigDecimal deposit;
     private boolean isFullPaid;
     private int employerId;
+    private LocalDateTime createdReservationDate;
 
-    public ReservationFilter(int id, int customerId, LocalDate startReservationDate, LocalDate endReservationDate, Room room, BigDecimal sum, BigDecimal deposit, boolean isFullPaid, int employerId) {
+    public ReservationFilter(int id, int customerId, LocalDate startReservationDate, LocalDate endReservationDate, int roomNumber, BigDecimal totalAmount, BigDecimal deposit, boolean isFullPaid, int employerId, LocalDateTime createdReservationDate) {
         this.id = id;
         this.customerId = customerId;
         this.startReservationDate = startReservationDate;
         this.endReservationDate = endReservationDate;
-        this.room = room;
-        this.sum = sum;
+        this.roomNumber = roomNumber;
+        this.totalAmount = totalAmount;
         this.deposit = deposit;
         this.isFullPaid = isFullPaid;
         this.employerId = employerId;
+        this.createdReservationDate = createdReservationDate;
     }
-
-
 
 
     public static int getCounterId() {
@@ -53,9 +54,6 @@ public class ReservationFilter {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
 
     public LocalDate getStartReservationDate() {
         return startReservationDate;
@@ -73,20 +71,20 @@ public class ReservationFilter {
         this.endReservationDate = endReservationDate;
     }
 
-    public Room getRoom() {
-        return room;
+    public int getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
-    public BigDecimal getSum() {
-        return sum;
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setSum(BigDecimal sum) {
-        this.sum = sum;
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public BigDecimal getDeposit() {
@@ -111,5 +109,13 @@ public class ReservationFilter {
 
     public void setEmployerId(int employerId) {
         this.employerId = employerId;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdReservationDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdReservationDate = createdDate;
     }
 }
